@@ -7,8 +7,8 @@
 
 class WeightedGraph : public Graph{
 public:
-    WeightedGraph() {};
-    WeightedGraph(std::set<Node*> nodeList);
+    WeightedGraph() = default;
+    WeightedGraph(const WeightedGraph& graph) = default;
 };
 
 #endif //_WEIGHTED_GRAPH_H_

@@ -10,18 +10,29 @@ int main(int argc, char** argv){
 
     WeightedGraph graph;
 
-    nodeA->AddEdge(nodeB, 5);
+    /*nodeA->AddEdge(nodeB, 5);
     nodeB->AddEdge(nodeC, 6);
     nodeC->AddEdge(nodeD, 7);
-    nodeD->AddEdge(nodeA, 8);
+    nodeD->AddEdge(nodeA, 8);*/
 
-    nodeB->DeleteEdge(nodeD);
+    nodeA->AddEdge(nodeB, 5);
+    nodeA->AddEdge(nodeC, 6);
+    nodeB->AddEdge(nodeD, 7);
+    nodeC->AddEdge(nodeD, 8);
+
+    /*nodeB->DeleteEdge(nodeD);
     nodeB->DeleteEdge(nodeB);
-    nodeB->DeleteEdge(nodeC);
+    nodeB->DeleteEdge(nodeC);*/
 
     graph.AddNode(nodeA);
     graph.AddNode(nodeB);
     graph.AddNode(nodeC);
     graph.AddNode(nodeD);
+
+    WeightedGraph graph2(graph);
+
+    //nodeB->ResetNode();
+
+    bool isAcyclic = graph.IsAcyclic();
 
 }

@@ -69,3 +69,120 @@ TEST_F(NodeTest, DeleteEdge) {
     EXPECT_TRUE(nodeB->DeleteEdge(nodeD));
     EXPECT_TRUE(nodeC->DeleteEdge(nodeD));
 }
+
+TEST_F(NodeTest, GetNextAndPrevEdges) {
+    //Add edges for this test case
+    //       > nodeB
+    //      /        \
+    //nodeA           > nodeD
+    //      \        /
+    //       > nodeC
+    EXPECT_TRUE(nodeA->AddEdge(nodeB, 5));
+    EXPECT_TRUE(nodeA->AddEdge(nodeC, 6));
+    EXPECT_TRUE(nodeB->AddEdge(nodeD, 7));
+    EXPECT_TRUE(nodeC->AddEdge(nodeD, 8));
+
+    std::unordered_map<Node*, int>* nextEdges = nodeA->GetNextEdges();
+    
+    //B and C are next nodes of the A and the weight of the edges are correct
+    EXPECT_EQ((*nextEdges).size(), 2);
+    EXPECT_TRUE(nextEdges->find(nodeB) != nextEdges->end());
+    EXPECT_EQ((*nextEdges)[nodeB], 5);
+    EXPECT_TRUE(nextEdges->find(nodeC) != nextEdges->end());
+    EXPECT_EQ((*nextEdges)[nodeC], 6);
+
+    //D is not a next node of the A
+    EXPECT_TRUE(nextEdges->find(nodeD) == nextEdges->end());
+
+    std::unordered_map<Node*, int>* prevEdges = nodeA->GetPrevEdges();
+    //A does not have a previous node
+    EXPECT_EQ((*prevEdges).size(), 0);
+
+    //A is the only previous node of the B
+    prevEdges = nodeB->GetPrevEdges();
+    EXPECT_EQ((*prevEdges).size(), 1);
+    EXPECT_TRUE(prevEdges->find(nodeA) != prevEdges->end());
+    EXPECT_EQ((*prevEdges)[nodeA], 5);
+}
+
+TEST_F(NodeTest, GetNextAndPrevEdgesCount) {
+    // Next and previous node count of all nodes are 0 at start
+    EXPECT_EQ(nodeA->PrevEdgesCount(), 0);
+    EXPECT_EQ(nodeA->NextEdgesCount(), 0);
+
+    EXPECT_EQ(nodeB->PrevEdgesCount(), 0);
+    EXPECT_EQ(nodeB->NextEdgesCount(), 0);
+
+    EXPECT_EQ(nodeC->PrevEdgesCount(), 0);
+    EXPECT_EQ(nodeC->NextEdgesCount(), 0);
+
+    EXPECT_EQ(nodeD->PrevEdgesCount(), 0);
+    EXPECT_EQ(nodeD->NextEdgesCount(), 0);
+
+    //Add edges for this test case
+    //       > nodeB
+    //      /        \
+    //nodeA           > nodeD
+    //      \        /
+    //       > nodeC
+    EXPECT_TRUE(nodeA->AddEdge(nodeB, 5));
+    EXPECT_TRUE(nodeA->AddEdge(nodeC, 6));
+    EXPECT_TRUE(nodeB->AddEdge(nodeD, 7));
+    EXPECT_TRUE(nodeC->AddEdge(nodeD, 8));
+
+    // Next and previous node count of all nodes are updated
+    EXPECT_EQ(nodeA->PrevEdgesCount(), 0);
+    EXPECT_EQ(nodeA->NextEdgesCount(), 2);
+
+    EXPECT_EQ(nodeB->PrevEdgesCount(), 1);
+    EXPECT_EQ(nodeB->NextEdgesCount(), 1);
+
+    EXPECT_EQ(nodeC->PrevEdgesCount(), 1);
+    EXPECT_EQ(nodeC->NextEdgesCount(), 1);
+
+    EXPECT_EQ(nodeD->PrevEdgesCount(), 2);
+    EXPECT_EQ(nodeD->NextEdgesCount(), 0);
+}
+
+TEST_F(NodeTest, GetValue) {
+    //Node values of the nodes are updated
+    EXPECT_EQ(nodeA->GetValue(), 1);
+    EXPECT_EQ(nodeB->GetValue(), 2);
+    EXPECT_EQ(nodeC->GetValue(), 3);
+    EXPECT_EQ(nodeD->GetValue(), 4);
+}
+
+TEST_F(NodeTest, ResetNode) {
+    //Add edges for this test case
+    //       > nodeB
+    //      /        \
+    //nodeA           > nodeD
+    //      \        /
+    //       > nodeC
+    EXPECT_TRUE(nodeA->AddEdge(nodeB, 5));
+    EXPECT_TRUE(nodeA->AddEdge(nodeC, 6));
+    EXPECT_TRUE(nodeB->AddEdge(nodeD, 7));
+    EXPECT_TRUE(nodeC->AddEdge(nodeD, 8));
+
+    //Reset the nodeB
+    //
+    //              
+    //nodeA           > nodeD
+    //      \        /
+    //       > nodeC
+    nodeB->ResetNode();
+    
+    //B is deleted and C is the only next node of the A
+    std::unordered_map<Node*, int>* nextEdges = nodeA->GetNextEdges();
+    EXPECT_EQ((*nextEdges).size(), 1);
+    EXPECT_TRUE(nextEdges->find(nodeB) == nextEdges->end());
+    EXPECT_TRUE(nextEdges->find(nodeC) != nextEdges->end());
+    EXPECT_EQ(nodeA->NextEdgesCount(), 1);
+
+    //B is deleted and C is the only previous node of the D
+    std::unordered_map<Node*, int>* prevEdges = nodeD->GetPrevEdges();
+    EXPECT_EQ((*prevEdges).size(), 1);
+    EXPECT_TRUE(prevEdges->find(nodeB) == prevEdges->end());
+    EXPECT_TRUE(prevEdges->find(nodeC) != prevEdges->end());
+    EXPECT_EQ(nodeD->PrevEdgesCount(), 1);
+}

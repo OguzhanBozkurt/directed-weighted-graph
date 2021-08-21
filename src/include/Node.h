@@ -9,6 +9,12 @@ public:
     explicit Node(int nodeValue);
     bool AddEdge(Node* nextNode, int weight);
     bool DeleteEdge(Node* nextNode);
+    void ResetNode(void);
+    int GetValue(void);
+    int NextEdgesCount(void);
+    int PrevEdgesCount(void);
+    std::unordered_map<Node*, int>* GetNextEdges(void);
+    std::unordered_map<Node*, int>* GetPrevEdges(void);
 
 private:
     int value;

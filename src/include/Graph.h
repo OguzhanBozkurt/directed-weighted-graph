@@ -7,9 +7,12 @@
 class Graph {
 public:
     Graph();
-    Graph(std::set<Node*> nodeList);
-    bool AddNode(Node* nextNode);
-    bool DeleteNode(Node* nextNode);
+    Graph(const Graph& graph);
+    ~Graph();
+    bool AddNode(Node* node);
+    bool DeleteNode(Node* node);
+    bool IsAcyclic(void);
+    int Size(void);
 
 protected:
     std::set<Node*> nodes;
