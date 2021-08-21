@@ -73,3 +73,145 @@ TEST_F(GraphTest, DeleteNode) {
     EXPECT_FALSE(graph.DeleteNode(nodeC));
     EXPECT_FALSE(graph.DeleteNode(nodeD));
 }
+
+TEST_F(GraphTest, IsAcyclic1) {
+    //Add edges for this test case
+    //       > nodeB
+    //      /        \
+    //nodeA           > nodeD
+    //      \        /
+    //       > nodeC
+    EXPECT_TRUE(graph.AddNode(nodeA));
+    EXPECT_TRUE(graph.AddNode(nodeB));
+    EXPECT_TRUE(graph.AddNode(nodeC));
+    EXPECT_TRUE(graph.AddNode(nodeD));
+
+    EXPECT_TRUE(graph.IsAcyclic());
+}
+
+TEST_F(GraphTest, IsAcyclic2) {
+    nodeA->ResetNode();
+    nodeB->ResetNode();
+    nodeC->ResetNode();
+    nodeD->ResetNode();
+
+    //Add edges for this test case
+    //nodeA --> nodeB 
+    //  ^         |
+    //  |         |
+    //  |         v
+    //nodeD <-- nodeC
+
+    nodeA->AddEdge(nodeB, 5);
+    nodeB->AddEdge(nodeC, 6);
+    nodeC->AddEdge(nodeD, 7);
+    nodeD->AddEdge(nodeA, 8);
+
+    EXPECT_TRUE(graph.AddNode(nodeA));
+    EXPECT_TRUE(graph.AddNode(nodeB));
+    EXPECT_TRUE(graph.AddNode(nodeC));
+    EXPECT_TRUE(graph.AddNode(nodeD));
+
+    EXPECT_FALSE(graph.IsAcyclic());
+}
+
+TEST_F(GraphTest, IsAcyclic3) {
+    nodeA->ResetNode();
+    nodeB->ResetNode();
+    nodeC->ResetNode();
+    nodeD->ResetNode();
+
+    //Add edges for this test case
+    //       > nodeB < 
+    //      /         \
+    //nodeA            > nodeD
+    //      \         /
+    //       > nodeC
+
+    nodeA->AddEdge(nodeB, 5);
+    nodeA->AddEdge(nodeC, 6);
+    nodeB->AddEdge(nodeD, 7);
+    nodeC->AddEdge(nodeD, 8);
+    nodeD->AddEdge(nodeB, 8);
+
+    EXPECT_TRUE(graph.AddNode(nodeA));
+    EXPECT_TRUE(graph.AddNode(nodeB));
+    EXPECT_TRUE(graph.AddNode(nodeC));
+    EXPECT_TRUE(graph.AddNode(nodeD));
+
+    EXPECT_TRUE(graph.IsAcyclic());
+}
+
+TEST_F(GraphTest, IsAcyclic4) {
+    nodeA->ResetNode();
+    nodeB->ResetNode();
+    nodeC->ResetNode();
+    nodeD->ResetNode();
+
+    //Add edges for this test case
+    //       > nodeB
+    //      /        \
+    //nodeA           > nodeD
+    //  ^   \        /    |
+    //  |    > nodeC      |
+    //  |                 |
+    //  -------------------
+
+    nodeA->AddEdge(nodeB, 5);
+    nodeA->AddEdge(nodeC, 6);
+    nodeB->AddEdge(nodeD, 7);
+    nodeC->AddEdge(nodeD, 8);
+    nodeD->AddEdge(nodeA, 8);
+
+    EXPECT_TRUE(graph.AddNode(nodeA));
+    EXPECT_TRUE(graph.AddNode(nodeB));
+    EXPECT_TRUE(graph.AddNode(nodeC));
+    EXPECT_TRUE(graph.AddNode(nodeD));
+
+    EXPECT_TRUE(graph.IsAcyclic());
+}
+
+TEST_F(GraphTest, IsAcyclic5) {
+    nodeA->ResetNode();
+    nodeB->ResetNode();
+    nodeC->ResetNode();
+    nodeD->ResetNode();
+    nodeE->ResetNode();
+
+    //Add edges for this test case
+    //          nodeB
+    //            |
+    //            v  
+    //nodeA --> nodeE <-- nodeC
+    //            ^    
+    //            |      
+    //          nodeD                
+
+    nodeA->AddEdge(nodeE, 5);
+    nodeB->AddEdge(nodeE, 6);
+    nodeC->AddEdge(nodeE, 7);
+    nodeD->AddEdge(nodeE, 8);
+
+    EXPECT_TRUE(graph.AddNode(nodeA));
+    EXPECT_TRUE(graph.AddNode(nodeB));
+    EXPECT_TRUE(graph.AddNode(nodeC));
+    EXPECT_TRUE(graph.AddNode(nodeD));
+    EXPECT_TRUE(graph.AddNode(nodeE));
+
+    EXPECT_TRUE(graph.IsAcyclic());
+}
+
+TEST_F(GraphTest, IsAcyclic6) {
+    nodeA->ResetNode();
+
+    //Add edges for this test case
+    //          nodeA
+
+    EXPECT_TRUE(graph.AddNode(nodeA));
+
+    EXPECT_TRUE(graph.IsAcyclic());
+}
+
+TEST_F(GraphTest, Size) {
+    EXPECT_EQ(graph.Size(), 4);
+}
