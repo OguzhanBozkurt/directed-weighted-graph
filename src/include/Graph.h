@@ -7,9 +7,10 @@
 class Graph {
 public:
     Graph();
-    Graph(std::set<Node*> nodeList);
-    bool AddNode(Node* nextNode);
-    bool DeleteNode(Node* nextNode);
+    Graph(const Graph& graph);
+    ~Graph();
+    bool AddNode(Node* node);
+    bool DeleteNode(Node* node);
 
 protected:
     std::set<Node*> nodes;
