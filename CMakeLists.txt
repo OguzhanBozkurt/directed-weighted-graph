@@ -5,3 +5,4 @@ project(directed-weighted-graph
     "Directed weighted graph implementation using C++")
 
 add_subdirectory(src)
+add_subdirectory(test)
