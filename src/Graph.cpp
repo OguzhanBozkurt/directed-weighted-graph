@@ -50,3 +50,29 @@ bool Graph::DeleteNode(Node* node) {
         return false;
     }
 }
+
+int Graph::Size(void) {
+	return nodes.size();
+}
+
+bool Graph::IsAcyclic(void) {
+	Graph tempGraph(*this);
+	bool isLeafFound = false;
+
+	while (tempGraph.Size() != 0)
+	{
+		isLeafFound = false;
+		for (auto it = tempGraph.nodes.begin(); it != tempGraph.nodes.end(); it++) {
+			if ((*it)->NextEdgesCount() == 0) {
+				(*it)->ResetNode();
+				tempGraph.nodes.erase((*it));
+				isLeafFound = true;
+				break;
+			}
+		}
+		if (!isLeafFound)
+			return false;
+	}
+
+	return true;
+}

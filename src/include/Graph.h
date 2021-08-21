@@ -11,6 +11,8 @@ public:
     ~Graph();
     bool AddNode(Node* node);
     bool DeleteNode(Node* node);
+    bool IsAcyclic(void);
+    int Size(void);
 
 protected:
     std::set<Node*> nodes;
