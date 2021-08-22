@@ -82,6 +82,7 @@ void findSmallest3(void) {
     Node* node6 = new Node(6);
     Node* node7 = new Node(7);
     Node* node8 = new Node(8);
+    Node* node9 = new Node(9);
 
     node1->AddEdge(node2, 2);
     node1->AddEdge(node3, 1);
@@ -117,6 +118,12 @@ void findSmallest3(void) {
     graph.AddNode(node8);
 
     std::vector<Node*> shortestPath = graph.FindShortestPath(node1, node5);
+    std::vector<Node*> shortestPath2 = graph.FindShortestPath(node1, node5);
+    std::vector<Node*> shortestPath3 = graph.FindShortestPath(node2, node5);
+    std::vector<Node*> shortestPath4 = graph.FindShortestPath(node2, node5);
+    node8->AddEdge(node9, 1);
+    graph.AddNode(node9);
+    std::vector<Node*> shortestPath5 = graph.FindShortestPath(node2, node5);
 }
 
 int main(int argc, char** argv){

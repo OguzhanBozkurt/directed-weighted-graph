@@ -9,7 +9,13 @@ class WeightedGraph : public Graph{
 public:
     WeightedGraph() = default;
     WeightedGraph(const WeightedGraph& graph) = default;
-    std::vector<Node*> FindShortestPath(const Node* from, const Node* to);
+    bool AddNode(Node* node);
+    bool DeleteNode(Node* node);
+    std::vector<Node*> FindShortestPath(Node* from, Node* to);
+
+private:
+    std::unordered_map<Node*, std::unordered_map<Node*, std::vector<Node*>>> shortestPaths;
+    bool IsSPTAlreadyCalculated(Node* from);
 };
 
 #endif //_WEIGHTED_GRAPH_H_
