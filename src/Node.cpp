@@ -38,13 +38,13 @@ int Node::GetValue(void) {
 }
 
 bool Node::AddEdge(Node* nextNode, int weight) {
-    if (nextEdges.find(nextNode) == nextEdges.end()) {
+    if (weight < 0 || nextEdges.find(nextNode) != nextEdges.end() || nextNode == this) {
+        return false;
+    }
+    else {
         nextEdges[nextNode] = weight;
         nextNode->prevEdges[this] = weight;
         return true;
-    }
-    else {
-        return false;
     }
 }
 
