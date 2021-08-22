@@ -24,11 +24,7 @@ protected:
     }
 
     virtual void TearDown() {
-        delete nodeA;
-        delete nodeB;
-        delete nodeC;
-        delete nodeD;
-        delete nodeE;
+
     }
 };
 
@@ -139,7 +135,7 @@ TEST_F(GraphTest, IsAcyclic3) {
     EXPECT_TRUE(graph.AddNode(nodeC));
     EXPECT_TRUE(graph.AddNode(nodeD));
 
-    EXPECT_TRUE(graph.IsAcyclic());
+    EXPECT_FALSE(graph.IsAcyclic());
 }
 
 TEST_F(GraphTest, IsAcyclic4) {
@@ -168,7 +164,7 @@ TEST_F(GraphTest, IsAcyclic4) {
     EXPECT_TRUE(graph.AddNode(nodeC));
     EXPECT_TRUE(graph.AddNode(nodeD));
 
-    EXPECT_TRUE(graph.IsAcyclic());
+    EXPECT_FALSE(graph.IsAcyclic());
 }
 
 TEST_F(GraphTest, IsAcyclic5) {
@@ -213,5 +209,21 @@ TEST_F(GraphTest, IsAcyclic6) {
 }
 
 TEST_F(GraphTest, Size) {
+    EXPECT_EQ(graph.Size(), 0);
+    EXPECT_TRUE(graph.AddNode(nodeA));
+    EXPECT_EQ(graph.Size(), 1);
+    EXPECT_TRUE(graph.AddNode(nodeB));
+    EXPECT_EQ(graph.Size(), 2);
+    EXPECT_TRUE(graph.AddNode(nodeC));
+    EXPECT_EQ(graph.Size(), 3);
+    EXPECT_TRUE(graph.AddNode(nodeD));
     EXPECT_EQ(graph.Size(), 4);
+    EXPECT_TRUE(graph.DeleteNode(nodeD));
+    EXPECT_EQ(graph.Size(), 3);
+    EXPECT_TRUE(graph.DeleteNode(nodeC));
+    EXPECT_EQ(graph.Size(), 2);
+    EXPECT_TRUE(graph.DeleteNode(nodeB));
+    EXPECT_EQ(graph.Size(), 1);
+    EXPECT_TRUE(graph.DeleteNode(nodeA));
+    EXPECT_EQ(graph.Size(), 0);
 }

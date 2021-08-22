@@ -30,16 +30,7 @@ protected:
     }
 
     virtual void TearDown() {
-        delete node1;
-        delete node2;
-        delete node3;
-        delete node4;
-        delete node5;
-        delete node6;
-        delete node7;
-        delete node8;
-        delete node9;
-        delete node10;
+
     }
 };
 
@@ -193,7 +184,7 @@ TEST_F(WeightedGraphTest, FindShortestPath3) {
     graph.AddNode(node8);
 
     std::vector<Node*> shortestPath = graph.FindShortestPath(node1, node5);
-    EXPECT_EQ(shortestPath[0], node1);
+    EXPECT_EQ(shortestPath[0], node1);    
     EXPECT_EQ(shortestPath[1], node2);
     EXPECT_EQ(shortestPath[2], node6);
     EXPECT_EQ(shortestPath[3], node8);
