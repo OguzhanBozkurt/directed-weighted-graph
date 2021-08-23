@@ -46,3 +46,15 @@ Documents are generated from javadoc style written comments by using doxygen. Yo
 ```bash
 build/html/index.html
 ```
+
+## Example App
+---
+There is an example app is included which can be seen at:
+```bash
+example/example.cpp
+```
+It can bu run by below commands
+```bash
+$ cd build/example
+$ ./example
+```
