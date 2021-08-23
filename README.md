@@ -39,3 +39,10 @@ $ ./NodeTest
 $ ./GraphTest
 $ ./WeightedGraphTest
 ```
+
+## Documentation
+---
+Documents are generated from javadoc style written comments by using doxygen. You can find the docs at below location after build step.
+```bash
+build/html/index.html
+```
